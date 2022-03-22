@@ -9,10 +9,9 @@ class Solution:
         res = 0
         while base <= n:
             # 计算 a..., cur, b...
+            a = n // base // 10
+            cur = (n // base) % 10
             b = n % base
-            a = n // base
-            cur = a % 10
-            a //= 10
             # 将当前位设为1，考察其他部分的变化范围
             # 一、cur > 1，
             #          [3101 ] 5 [92]
@@ -28,7 +27,7 @@ class Solution:
             #               1   *   (b+1)
             # 总个数：a *base + (b + 1)
             elif cur == 1:
-                res += (a * base + b + 1)
+                res += a * base + b + 1
             # 三、cur < 1，
             #           [31] 0 [1592]
             # 变化范围 [0-30] 1 [0-9999]

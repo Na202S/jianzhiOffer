@@ -6,16 +6,35 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+
+// 方法一：辅助栈
 class Solution {
    public:
     vector<int> reversePrint(ListNode* head) {
-        // 正序遍历链表，res 存储节点数值
-        vector<int> res;
-        for (ListNode* p = head; p != NULL; p = p->next) {
-            res.push_back(p->val);
+        stack<int> stk;
+        ListNode* p = head;
+        while (p) {
+            stk.push(p->val);
+            p = p->next;
         }
-        // 反转 res
-        reverse(res.begin(), res.end());
+        vector<int> res;
+        while (!stk.empty()) {
+            res.push_back(stk.top());
+            stk.pop();
+        }
+        return res;
+    }
+};
+
+// 方法二：递归
+class Solution {
+   public:
+    vector<int> res;
+    vector<int> reversePrint(ListNode* head) {
+        if (head) {
+            reversePrint(head->next);
+            res.push_back(head->val);
+        }
         return res;
     }
 };
